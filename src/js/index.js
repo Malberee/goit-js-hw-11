@@ -26,9 +26,8 @@ function onFormSubmit(e) {
 
 	const formValue = form.elements.searchQuery.value.trim()
 
-	if (formValue !== '') {
-		getImages(formValue)
-	}
+	if (formValue !== '') getImages(formValue)
+	else loadMoreBtn.classList.add('is-hidden')
 }
 
 async function getImages(value) {
