@@ -28,10 +28,11 @@ function onFormSubmit(e) {
 
 	if (formValue !== '') {
 		getImages(formValue)
-	} else loadMoreBtn.classList.add('is-hidden')
+	}
 }
 
 async function getImages(value) {
+	loadMoreBtn.classList.add('is-hidden')
 	const options = {
 		params: {
 			key: '34735495-c5ef181074f4f4736bdb9177b',
