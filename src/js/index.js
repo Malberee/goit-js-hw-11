@@ -29,8 +29,6 @@ function onFormSubmit(e) {
 	if (formValue !== '') {
 		getImages(formValue)
 	} else loadMoreBtn.classList.add('is-hidden')
-
-	console.log(page)
 }
 
 async function getImages(value) {
@@ -70,13 +68,9 @@ async function getImages(value) {
 		console.log(err.message)
 		return
 	}
-
-	console.log(page)
 }
 
 function renderGallery(data) {
-	console.log(data)
-
 	data.forEach(image => {
 		const {
 			webformatURL,
