@@ -42,7 +42,7 @@ async function getImages(value) {
 			orientation: 'horizontal',
 			safesearch: 'true',
 			page: page,
-			per_page: 100,
+			per_page: 40,
 		},
 	}
 
