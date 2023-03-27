@@ -10,14 +10,13 @@ const gallery = document.querySelector('.gallery')
 const loadMoreBtn = document.querySelector('.load-more')
 
 form.addEventListener('submit', onFormSubmit)
-loadMoreBtn.addEventListener('click', () =>
-	getImages(form.elements.searchQuery.value)
-)
+loadMoreBtn.addEventListener('click', () => getImages(lastSearch))
 
 let page
 let totalImagesLoaded = 0
+let lastSearch
 
-function onFormSubmit(e) {
+async function onFormSubmit(e) {
 	e.preventDefault()
 
 	gallery.innerHTML = ''
@@ -26,12 +25,15 @@ function onFormSubmit(e) {
 
 	const formValue = form.elements.searchQuery.value.trim()
 
-	if (formValue !== '') getImages(formValue)
+	if (formValue !== '') await getImages(formValue)
 	else loadMoreBtn.classList.add('is-hidden')
 }
 
 async function getImages(value) {
 	loadMoreBtn.classList.add('is-hidden')
+
+	lastSearch = value
+
 	const options = {
 		params: {
 			key: '34735495-c5ef181074f4f4736bdb9177b',
@@ -52,16 +54,26 @@ async function getImages(value) {
 				)
 				return
 			}
+
 			console.log(res.data)
+
 			totalImagesLoaded += res.data.hits.length
+
 			if (totalImagesLoaded >= res.data.totalHits) {
 				loadMoreBtn.classList.add('is-hidden')
 				Notify.info(
 					"We're sorry, but you've reached the end of search results."
 				)
 			}
+
+			if (page === 1) {
+				Notify.success(`Hooray! We found ${res.data.totalHits} images.`)
+			}
+
 			loadMoreBtn.classList.remove('is-hidden')
+
 			renderGallery(res.data.hits)
+
 			page += 1
 		})
 	} catch (err) {
