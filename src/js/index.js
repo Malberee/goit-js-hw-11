@@ -13,13 +13,15 @@ form.addEventListener('submit', onFormSubmit)
 loadMoreBtn.addEventListener('click', () => getImages(lastSearch))
 
 let page
-let totalImagesLoaded = 0
+let totalImagesLoaded
 let lastSearch
 
 async function onFormSubmit(e) {
 	e.preventDefault()
 
 	gallery.innerHTML = ''
+
+	totalImagesLoaded = 0
 
 	page = 1
 
